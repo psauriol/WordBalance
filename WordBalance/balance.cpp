@@ -1,6 +1,7 @@
 //Paul Sauriol
 //07/12/2015
 //Word Balance
+//v2
 
 #include <iostream>;
 #include <string>;
@@ -9,8 +10,7 @@ using namespace std;
 
 void main()
 {
-	string input;
-	string output = "";
+	string word;
 
 	int leftWeight;
 	int rightWeight;
@@ -18,24 +18,24 @@ void main()
 	bool doesBalance = false;
 
 	cout << "Input word: ";
-	cin >> input;
+	cin >> word;
 
-	for (int i = 0; i < input.length(); i++)// this loop tests each possible balance point
+	for (int i = 0; i < word.length(); i++)// this loop tests each possible balance point
 	{
 		leftWeight = 0;
 		rightWeight = 0;
 
-		for (int e = 0; e < input.length(); e++)// this loop finds the weight on each side of the tested point
+		for (int e = 0; e < word.length(); e++)// this loop finds the weight on each side of the tested point
 		{
 			if (e < i)
 			{
 				//torque += distance * letterWeight
-				leftWeight += (i - e) * (input[e] - 64);
+				leftWeight += (i - e) * (word[e] - 64);
 			}
 			else if (e > i)
 			{
 				//torque += distance * letterWeight
-				rightWeight += (e - i) * (input[e] - 64);
+				rightWeight += (e - i) * (word[e] - 64);
 			}
 			else // e==i
 			{
@@ -49,13 +49,9 @@ void main()
 			//current i is balance point
 			doesBalance = true;
 
-			output += input.substr(0, i);
-			output += " ";
-			output += input.substr(i, 1);
-			output += " ";
-			output += input.substr(i + 1, input.length() - i);
-			output += ", ";
-			output += to_string(leftWeight);
+			word.insert(i + 1, " ");
+			word.insert(i, " ");
+			word += ", " + to_string(leftWeight);
 
 		}
 
@@ -63,7 +59,7 @@ void main()
 
 	if (doesBalance)
 	{
-		cout << output << endl;
+		cout << word << endl;
 	}
 	else
 	{
